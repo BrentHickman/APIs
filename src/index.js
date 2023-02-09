@@ -20,20 +20,28 @@ function addIngredients(ingredients) {
 function getRecipe(recipeId) {
   let recipePromise = RecipeService.getRecipe(recipeId);
   recipePromise.then(function(recipeDataArray) {
-    let recipeTitle = recipeDataArray[0].title;
-    let recipeURL = recipeDataArray[0].sourceUrl;
-    printElements(recipeTitle, recipeURL);
+
+    printElements(recipeDataArray);
   });
 
 }
 
 // UI Logic
 
-function printElements(recipeTitle, recipeURL) {
+function printElements(recipeDataArray) {
+  let recipeTitle = recipeDataArray[0].title;
+  let recipeURL = recipeDataArray[0].sourceUrl;
   let recipeLink = document.createElement('a');
+  let recipeImgSrc = recipeDataArray[0].image;
+  let recipeImg = document.createElement('img');
+
   recipeLink.innerText = `Try ${recipeTitle}.`;
   document.querySelector('#showResponse').append(recipeLink);
   recipeLink.setAttribute('href', recipeURL);
+
+  document.querySelector('#showResponse').append(recipeImg);
+  recipeImg.setAttribute('src', recipeImgSrc);
+
 }
 
 function printError(error) {
