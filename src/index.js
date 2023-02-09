@@ -34,11 +34,12 @@ function printElements(recipeDataArray) {
   let recipeLink = document.createElement('a');
   let recipeImgSrc = recipeDataArray[0].image;
   let recipeImg = document.createElement('img');
+  let breakLine = document.createElement('br');
 
-  recipeLink.innerText = `Try ${recipeTitle}.`;
+  recipeLink.innerText = `${recipeTitle}`;
   document.querySelector('#showResponse').append(recipeLink);
   recipeLink.setAttribute('href', recipeURL);
-
+  document.querySelector('#showResponse').append(breakLine);
   document.querySelector('#showResponse').append(recipeImg);
   recipeImg.setAttribute('src', recipeImgSrc);
 
