@@ -1,17 +1,17 @@
 export default class RecipeService {  
-  static getRecipes(ingredients) {
+  static getRecipe(recipeId) {
     return new Promise(function(resolve, reject) {
       let request = new XMLHttpRequest();
-      const url = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${process.env.API_KEY}&ingredients=${ingredients}&number=2`;
+      const recipeUrl = `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${process.env.API_KEY}&includeNutrition=false`;
       request.addEventListener("loadend", function() {
         const response = JSON.parse(this.responseText);
         if (this.status === 200) {
-          resolve([response, ingredients]);
+          resolve([response, recipeId]);
         } else {
-          reject([this, response, ingredients]);
+          reject([this, response, recipeId]);
         }
       });
-      request.open("GET", url, true);
+      request.open("GET", recipeUrl, true);
       request.send();
     });
   }

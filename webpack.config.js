@@ -19,7 +19,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new Dotenv(),
     new HtmlWebpackPlugin({
-      title: 'Triangle Tracker Refactor',
+      title: 'recipes',
       template: './src/index.html',
       inject: 'body'
     })
