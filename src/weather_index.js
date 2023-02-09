@@ -1,15 +1,15 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
-import RecipeService from './recipe-service.js'
+import WeatherService from './weather-service.js'
 
 
 // Business Logic
 
-function getRecipes(ingredients) {
-  let promise = RecipeService.getRecipes(ingredients);
-  promise.then(function(recipeDataArray) {
-    printElements(recipeDataArray);
+function getWeather(city) {
+  let promise = WeatherService.getWeather(city);
+  promise.then(function(weatherDataArray) {
+    printElements(weatherDataArray);
   }, function(errorArray) {
     printError(errorArray);
   });
@@ -18,7 +18,8 @@ function getRecipes(ingredients) {
 // UI Logic
 
 function printElements(data) {
-  document.querySelector('#showResponse').innerText = `Try ${data[1]}.`;
+  document.querySelector('#showResponse').innerText = `The humidity in ${data[1]} is ${data[0].main.humidity}%.
+  The temperature in Fahrenheit is ${parseInt(((data[0].main.temp-273.15)*1.8)+32)} degrees.`;
 }
 
 function printError(error) {
@@ -27,11 +28,14 @@ function printError(error) {
 
 function handleFormSubmission(event) {
   event.preventDefault();
-  const ingredients = document.querySelector('#ingredients').value;
-  document.querySelector('#ingredients').value = null;
-  getRecipes(ingredients);
+  const city = document.querySelector('#location').value;
+  document.querySelector('#location').value = null;
+  getWeather(city);
 }
 
 window.addEventListener("load", function() {
   document.querySelector('form').addEventListener("submit", handleFormSubmission);
 });
+
+
+// The temperature in Kelvins is ${results[0].main.temp} degrees.
